@@ -1,0 +1,46 @@
+Greek's complete vpn setup. (all you need is a brain and 10 minutes of your time.)
+
+MAKE SURE SERVER IS ON UBUNTU 20.04 OR 18
+
+[SETUP]
+
+    1. >> mkdir openvpn
+
+    2. >> apt-get update --allow-releaseinfo-change -y
+
+    3. >> apt-get update -y && apt-get upgrade -y && apt install ufw -y && apt install curl -y && apt install tcpdump -y && apt install nload -y && apt install sudo -y && apt install tshark -y && apt install wireshark -y && apt-get install python3-pip -y && pip3 install requests && apt install screen -y
+
+    4. >> cd openvpn
+
+    5. >> sudo curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
+
+    6. >> sudo chmod +x openvpn-install.sh
+
+    7. >> ./openvpn-install.sh
+
+    8. >> follow the instructions it says and choose udp unless its from a ovh provider.
+
+[TABLES] (these are basic tables these are **NOT** in no way shape or form making your server "unhittable".)
+
+    1. >> iptables -I INPUT -s **YOURIP** -j ACCEPT
+
+    2. >> iptables -A INPUT -p tcp --destination-port 80 -j DROP
+
+    3. >> iptables -A INPUT -p tcp --destination-port 22 -j DROP
+
+    4. >> iptables -A INPUT -p tcp --destination-port 443 -j DROP
+
+    5. >> iptables -A INPUT -p tcp --destination-port 8080 -j DROP
+
+    6. >> iptables -A INPUT -p tcp --destination-port 1194 -j DROP
+
+    (This command limits the amount of connections that can connect to the port in a certain amount of time. [useful for slowing down attacks.])
+
+    7. >> iptables -I INPUT -p tcp --syn --dport **YOURTCPPORT** -m connlimit --connlimit-above 10 -j REJECT --reject-with tcp-reset
+
+    8. >> iptables-save
+
+
+if you have any questions or are experiencing problems dm me on discord greek#0001. 
+
+- stay safe, greek <3
